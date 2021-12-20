@@ -1,0 +1,281 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+ModeloSimplificado
+</name>
+</assembly>
+<members>
+<member name="T:ModeloSimplificado.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:ModeloSimplificado.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:ModeloSimplificado.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:ModeloSimplificado.Tools.NEIGHBORS">
+ <summary>
+ Estructura de celdas vecinas 
+ </summary>
+</member>
+<member name="T:ModeloSimplificado.Tools.DATA">
+ <summary>
+ Estructura que contiene los datos de cada cuerpo de agua.
+ </summary>
+</member>
+<member name="M:ModeloSimplificado.Tools.DETERMINISTIC8(ERN.FileTypes.ModGRN,System.Boolean)">
+ <summary>
+ Función que calcula la dirección de flujo para cada celda de acuerdo a la dirección asociada a la pendiente máxima.
+ </summary>
+ <param name="DEM">Malla de Modelo Digital de Elevación.</param>
+ <returns>Regresa malla de dirección de flujo.</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.FLOW_ACCUMULATION(ERN.FileTypes.ModGRN,System.Collections.Generic.List{Crisis.Geometry.PointType})">
+ <summary>
+ Función que calcula la acumulación de flujo.
+ </summary>
+ <param name="D8">Malla de dirección de flujo.</param>
+ <param name="UDL">Lista celdas ordenadas de mayor a menor.</param>
+ <returns>Regresa malla de acumulación de flujo.</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.HIGH_LOW(ERN.FileTypes.ModGRN,ERN.FileTypes.ModGRN)">
+ <summary>
+ Función que determina si la celda corresponde a una celda con código HIGH o LOW.
+ </summary>
+ <param name="D8">Malla de dirección de flujo.</param>
+ <param name="DEM">Malla de Modelo Digital de Elevación.</param>
+ <returns>Regresa listas de celdas HIGH y celdas LOW.</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.LABELFLAT(ERN.FileTypes.ModGRN,System.Collections.Generic.List{Crisis.Geometry.PointType},System.Collections.Generic.List{Crisis.Geometry.PointType})">
+ <summary>
+ Función que marca en una malla e identifica cada uno de los cuerpos de agua con salida.
+ </summary>
+ <param name="DEM">Malla de Modelo Digital de Elevación.</param>
+ <param name="HIGH">Lista de celdas HIGH.</param>
+ <param name="LOW">Lista de cledas LOW.</param>
+ <returns>Malla que contiene identificadas las zonas planas.</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.CLEANLIST(ERN.FileTypes.ModGRN,ERN.FileTypes.ModGRN,System.Collections.Generic.List{Crisis.Geometry.PointType},System.Collections.Generic.List{Crisis.Geometry.PointType})">
+ <summary>
+ 
+ </summary>
+ <param name="LABELGRID"></param>
+ <param name="DEM"></param>
+ <param name="HIGH"></param>
+ <param name="FLAT"></param>
+ <returns></returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.HIGHSTEP(ERN.FileTypes.ModGRN,System.Collections.Generic.List{Crisis.Geometry.PointType},System.Collections.Generic.List{Crisis.Geometry.PointType})">
+ <summary>
+ Función que asigna el peso de la corrección sobre las celdas HIGH de acuerdo a la metodología. 
+ </summary>
+ <param name="DEM">Malla de Modelo Digital de Elevación.</param>
+ <param name="HIGH">Lista de celdas HIGH.</param>
+ <param name="FLATL">Lista de celdas de zonas planas.</param>
+ <returns>Regresa la lista de las celdas HIGH y su peso de corrección.</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.LOWSTEP(ERN.FileTypes.ModGRN,System.Collections.Generic.List{Crisis.Geometry.PointType},System.Collections.Generic.List{Crisis.Geometry.PointType})">
+ <summary>
+ Función que asigna el peso de la corrección sobre las celdas HIGH de acuerdo a la metodología.
+ </summary>
+ <param name="DEM">Malla de Modelo Digital de Elevación.</param>
+ <param name="LOW">Lista de cledas LOW.</param>
+ <param name="FLATL">Lista de celdas de zonas planas.</param>
+ <returns>Regresa la lista de las celdas LOW y su peso de corrección.</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.CORRECT(ERN.FileTypes.ModGRN,System.Collections.Generic.List{Crisis.Geometry.PointType},System.Collections.Generic.List{Crisis.Geometry.PointType},System.Single)">
+ <summary>
+ Función que aplica la corrección de acuerdo a los pesos en las zonas planas.
+ </summary>
+ <param name="DEM">Malla de Modelo Digital de Elevación.</param>
+ <param name="STEPHIGH">Lista de celdas HIGH y peso aplicado.</param>
+ <param name="STEPLOW">Lista de celdas LOW y peso aplicado.</param>
+ <param name="FC">Factor de corrección.</param>
+ <returns></returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.FLATLIST(ERN.FileTypes.ModGRN,ERN.FileTypes.ModGRN)">
+ <summary>
+ Función que determina si hay celdas identificadas como zona plana.
+ </summary>
+ <param name="LABELGRID">Malla que contiene identificadas las zonas planas.</param>
+ <param name="DEM">Malla de Modelo Digital de Elevación.</param>
+ <returns>Lista de zonas planas</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.REMOVEFLATZONE(ERN.FileTypes.ModGRN,System.Single,System.Boolean)">
+ <summary>
+ Función que modifica la elevación de zonas planas con salida.
+ </summary>
+ <param name="DEM">Malla de Modelo Digital de Elevación.</param>
+ <param name="FC">Factor de corrección.</param>
+ <returns>Regresa malla sin zonas con salida.</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.ADD_GRID(ERN.FileTypes.ModGRN,ERN.FileTypes.ModGRN)">
+ <summary>
+ Función que suma mallas.
+ </summary>
+ <param name="GRID1">Malla 1.</param>
+ <param name="GRID2">Malla 2.</param>
+ <returns>Regresa la suma entre 2 mallas</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.UPDOWN(ERN.FileTypes.ModGRN)">
+ <summary>
+ Función que crea la lista de celdas ordenadas por elevación de mayor a menor.
+ </summary>
+ <param name="DEM">Malla de Modelo Digital de Elevación.</param>
+ <returns>Regresa lista de celdas ordenadas de mayor a menor.</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.MIN_OUT(ERN.FileTypes.ModGRN,System.Collections.Generic.List{Crisis.Geometry.PointType},System.Byte[0:,0:])">
+ <summary>
+ Función que encuentra el siguiente nivel de comunicación del cuerpo de agua y determina si la celda corresponde a una salida.
+ </summary>
+ <param name="DEM">Malla de Modelo Digital de Elevación.</param>
+ <param name="EDGE">Lista de celdas de borde del cuerpo de agua.</param>
+ <param name="B">Matriz que identifica celdas que componen el cuerpo de agua.</param>
+ <returns>Regresa la o las celdas del siguiente nivel de comunicación y celda de salida si esta es encontrada.</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.SEEKFN(ERN.FileTypes.ModGRN,ERN.FileTypes.ModGRN,System.Collections.Generic.List{Crisis.Geometry.PointType}@)">
+ <summary>
+ Función que crea la lista de celdas "sink" al tratarse de una zona plana.
+ </summary>
+ <param name="COD">Malla de código de identificación de las celdas.</param>
+ <param name="DEM">Malla de Modelo Digital de Elevación.</param>
+ <param name="WATERBODY">Lista de celdas que componen el cuerpo de agua.</param>
+ <returns>Regresa lista de celdas que componen la zona plana.</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.SEEKED(System.Collections.Generic.List{Crisis.Geometry.PointType},ERN.FileTypes.ModGRN,System.Byte[0:,0:])">
+ <summary>
+ Función que determina la lista de celdas que corresponden al borde del cuerpo de agua.
+ </summary>
+ <param name="WATERBODY">Lista de celdas que componen el cuerpo de agua.</param>
+ <param name="DEM">Malla de Modelo Digital de Elevación.</param>
+ <param name="B">Matriz que identifica celdas que componen el cuerpo de agua.</param>
+ <returns>Regresa lista de celdas de borde del cuerpo de agua.</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.ADDEDGE(System.Collections.Generic.List{Crisis.Geometry.PointType},ERN.FileTypes.ModGRN,System.Collections.Generic.List{Crisis.Geometry.PointType},System.Byte[0:,0:])">
+ <summary>
+ Función que modifica la lista de celdas de borde.
+ </summary>
+ <param name="MIN">Lista de celda(s) del nivel de comunicación.</param>
+ <param name="DEM">Malla de Modelo Digital de Elevación.</param>
+ <param name="EDGE">Lista de celdas de borde del cuerpo de agua.</param>
+ <param name="B">Matriz que identifica celdas que componen el cuerpo de agua</param>
+ <returns>Regresa lista modificada de borde.</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.HM(ERN.FileTypes.ModGRN,ERN.FileTypes.ModGRN,System.Collections.Generic.List{Crisis.Geometry.PointType})">
+ <summary>
+ Función que guarda el tirante máximo.
+ </summary>
+ <param name="HMAX">Malla de tirantes máximos.</param>
+ <param name="H">Malla de tirantes.</param>
+ <param name="WATERBODY">Lista de celdas que componen el cuerpo de agua.</param>
+ <returns>Regresa la malla de tirantes máximos.</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.ExtraerH(ERN.FileTypes.ModGRN,ERN.FileTypes.ModGRN,System.Int32,System.Boolean)">
+ <summary>
+ Función que extrae el tirante a partir de la malla de volumen
+ </summary>
+ <param name="IN_H"></param>
+ <param name="DEMWOF"></param>
+ <param name="isCoordGeo"></param>
+ <returns></returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.Distancekm(System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+ Función que calcula la distancia horizontal y vertical del DEM en km
+ </summary>
+ <param name="Lat1"></param>
+ <param name="Lon1"></param>
+ <param name="Lat2"></param>
+ <param name="Lon2"></param>
+ <returns></returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.QM(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+ <summary>
+ Funcion QM calcula el gasto trasportado de acuerdo con las condiciones hidraulicas de cada sección.
+ </summary>
+ <param name="N1">Coeficiente de rugocidad de la celda 1</param>
+ <param name="N2">Coeficiente de rugosidad de la celda 2</param>
+ <param name="H1">Tirante de la celda 1</param>
+ <param name="H2">Tirante de la celda 2</param>
+ <param name="DX">Ancho de la celda</param>
+ <param name="Z1">Elevación de la celda 1</param>
+ <param name="Z2">Elevacion de la celda 2</param>
+ <returns>Regresa el valor de gasto en [m3/s]</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.YC(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+ <summary>
+ Función que calcula el tirante crítico para un par de celdas.
+ </summary>
+ <param name="N1">Coeficiente de Manning de la celda central</param>
+ <param name="N2">Coeficiente de Manning de una de las celdas vecinas</param>
+ <param name="DX">Ancho del pixen en el eje x</param>
+ <param name="Z1">Elevación del terreno de la celda central</param>
+ <param name="Z2">Elevación del terreno para una de las celdas vecinas</param>
+ <returns></returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.TCRIT(ERN.FileTypes.ModGRN,ERN.FileTypes.ModGRN,System.Int32,System.Boolean)">
+ <summary>
+ Función que genera la malla de tirantes críticos.
+ </summary>
+ <param name="DEM">Malla del modelo digital de elevaciones</param>
+ <param name="MANNING">Malla del coeficiente de Manning</param>
+ <param name="YC_TIPE">Elección del tipo de Yc calculado (mínimo, promedio o máximo)</param>
+ <param name="isCoordGeo">Bandera que determina el tipo de coordenadas de las mallas de entrada (grados o metros)</param>
+ <returns></returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.HMYC(ERN.FileTypes.ModGRN,ERN.FileTypes.ModGRN,ERN.FileTypes.ModGRN)">
+ <summary>
+ Función que modifica los valores de tirantes entre el tirante máximo y el tirante crítico.
+ </summary>
+ <param name="COD">Malla que contiene el código de identificación de cada celda de acuerdo con su tipo de uso</param>
+ <param name="HC">Malla de tirantes críticos</param>
+ <param name="HMAX">Malla de tirantes máximos</param>
+ <returns></returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.ACUPTODOW(ERN.FileTypes.ModGRN@,ERN.FileTypes.ModGRN@,ERN.FileTypes.ModGRN@,ERN.FileTypes.ModGRN,ERN.FileTypes.ModGRN,System.Int32,System.Int32,System.Boolean)">
+ <summary>
+ Función de transporte de tirante
+ </summary>
+ <param name="COD">Malla que contiene el código de identificación de cada celda de acuerdo con su tipo de uso</param>
+ <param name="H">Malla de tirantes en [m]</param>
+ <param name="DEM">Malla de elevaciones en [m]</param>
+ <param name="MANNING">Malla de coeficientes de rugosidad en[sm-1/3]</param>
+ <param name="I">Indice I</param>
+ <param name="J">Indice J</param>
+ <returns>Actualiza los tirantes hasta encontrar una zona de relleno</returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.SPILL(ERN.FileTypes.ModGRN@,ERN.FileTypes.ModGRN@,ERN.FileTypes.ModGRN,System.Collections.Generic.List{Crisis.Geometry.PointType},System.Collections.Generic.List{ModeloSimplificado.Tools.DATA}@,System.Byte[0:,0:]@,System.Single,System.Boolean)">
+ <summary>
+ Función SPILL rellena la zona encontrada hasta que el volumen del vaso excede el volumen acumulado o se encuentra una salida por pendiente
+ </summary>
+ <param name="H">Malla de tirantes en [m]</param>
+ <param name="COD">Malla que contiene el código de identificación de cada celda de acuerdo con su tipo de uso</param>
+ <param name="DEM">Malla de elevaciones en [m]</param>
+ <param name="WATERBODY">Lista que contiene los indices de ubicacion de cada celda que compone el cuerpo de agua [x,y,z]</param>
+ <param name="DATALIST">Lista de cuerpos de agua calculados previamente</param>
+ <param name="B">Matriz de identificación de cuerpo de agua</param>
+ <param name="ZMIN">Elevación mas baja de todo el dominio de terreno [m]</param>
+ <returns></returns>
+</member>
+<member name="M:ModeloSimplificado.Tools.WATERBODYRL(ERN.FileTypes.ModGRN@,ERN.FileTypes.ModGRN@,ERN.FileTypes.ModGRN,System.Collections.Generic.List{ModeloSimplificado.Tools.DATA}@,Crisis.Geometry.PointType,System.Boolean)">
+ <summary>
+ Funcion que resuelve el re acomodo de agua que llega a un cuerpo de agua predeterminado.
+ </summary>
+ <param name="H">Malla de tirantes en [m]</param>
+ <param name="COD">Malla que contiene el código de identificación de cada celda de acuerdo con su tipo de uso</param>
+ <param name="DEM">Malla de elevaciones en [m]</param>
+ <param name="DATALIST">Lista de cuerpos de agua calculados previamente</param>
+ <param name="O">Celda que pertenece al cuerpo de agua [x,y,z]</param>
+ <returns></returns>
+</member>
+</members>
+</doc>
